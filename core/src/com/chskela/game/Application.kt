@@ -32,6 +32,7 @@ class Application : Game() {
     override fun dispose() {
         super.dispose()
         batch.dispose()
+        screen.dispose()
     }
 
 }

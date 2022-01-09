@@ -4,7 +4,9 @@ import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.Screen
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.Texture
+import com.badlogic.gdx.math.Interpolation
 import com.badlogic.gdx.scenes.scene2d.Stage
+import com.badlogic.gdx.scenes.scene2d.actions.Actions.*
 import com.badlogic.gdx.scenes.scene2d.ui.Image
 import com.badlogic.gdx.utils.ScreenUtils
 import com.badlogic.gdx.utils.viewport.FitViewport
@@ -19,7 +21,17 @@ class SplashScreen(private val app: Application) : Screen {
 
     init {
         Gdx.input.inputProcessor = stage
-        splashScreenImage.setPosition(stage.width / 2 - 179f, stage.height / 2 - 78f)
+        splashScreenImage.setOrigin(splashScreenImage.width / 2, splashScreenImage.height / 2)
+        splashScreenImage.setPosition(stage.width / 2 - 179f, stage.height + 78f)
+        splashScreenImage.addAction(
+            sequence(
+                alpha(0f), scaleTo(.1f, .1f), parallel(
+                    fadeIn(1.5f, Interpolation.pow2),
+                    scaleTo(1f, 1f, 2f, Interpolation.pow5),
+                    moveTo(stage.width / 2 - 179f, stage.height / 2 - 78f, 1.5f, Interpolation.swing)
+                ), delay(.5f), fadeOut(1f)
+            )
+        )
         stage.addActor(splashScreenImage)
         app.font.data.scale(3f)
     }
@@ -28,15 +40,13 @@ class SplashScreen(private val app: Application) : Screen {
 
     override fun render(delta: Float) {
         ScreenUtils.clear(Color(0.5f, 0.8471f, 1f, 1f))
-//        ScreenUtils.clear(Color(0x80_D8_ff))
-
 
         update(delta)
 
         stage.draw()
 
         app.batch.begin()
-//        app.font.draw(app.batch, "SplashScreen!", stage.width / 2 - 150f, stage.height / 2)
+
         app.batch.end()
     }
 
@@ -45,7 +55,7 @@ class SplashScreen(private val app: Application) : Screen {
     }
 
     override fun resize(width: Int, height: Int) {
-        stage.viewport.update(width,height)
+        stage.viewport.update(width, height)
     }
 
     override fun pause() {}
@@ -54,5 +64,7 @@ class SplashScreen(private val app: Application) : Screen {
 
     override fun hide() {}
 
-    override fun dispose() {}
+    override fun dispose() {
+        stage.dispose()
+    }
 }
