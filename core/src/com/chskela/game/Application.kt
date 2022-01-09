@@ -1,31 +1,37 @@
-package com.chskela.game;
+package com.chskela.game
 
-import com.badlogic.gdx.ApplicationAdapter;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.utils.ScreenUtils;
+import com.badlogic.gdx.Game
 
-public class Pong extends ApplicationAdapter {
-	SpriteBatch batch;
-	Texture img;
-	
-	@Override
-	public void create () {
-		batch = new SpriteBatch();
-		img = new Texture("badlogic.jpg");
-	}
+import com.badlogic.gdx.graphics.OrthographicCamera
+import com.badlogic.gdx.graphics.g2d.BitmapFont
+import com.badlogic.gdx.graphics.g2d.SpriteBatch
+import com.chskela.game.screens.MainMenuScreen
+import com.chskela.game.screens.SplashScreen
 
-	@Override
-	public void render () {
-		ScreenUtils.clear(1, 0, 0, 1);
-		batch.begin();
-		batch.draw(img, 0, 0);
-		batch.end();
-	}
-	
-	@Override
-	public void dispose () {
-		batch.dispose();
-		img.dispose();
-	}
+class Application : Game() {
+
+    companion object {
+        const val TITLE = "Pong"
+        const val VERSION = 0.1f
+        const val V_WIDTH = 1080f
+        const val V_HEIGHT = 720f
+    }
+
+    val camera = OrthographicCamera()
+    lateinit var batch: SpriteBatch
+    lateinit var font: BitmapFont
+
+    override fun create() {
+        camera.setToOrtho(false, V_WIDTH, V_HEIGHT)
+        batch = SpriteBatch()
+//        font = BitmapFont(Gdx.files.internal("roboto_regular.ttf"))
+        font = BitmapFont()
+        screen = SplashScreen(this)
+    }
+
+    override fun dispose() {
+        super.dispose()
+        batch.dispose()
+    }
+
 }

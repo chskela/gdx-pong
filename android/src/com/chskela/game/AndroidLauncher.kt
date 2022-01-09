@@ -1,16 +1,13 @@
-package com.chskela.game;
+package com.chskela.game
 
-import android.os.Bundle;
+import com.badlogic.gdx.backends.android.AndroidApplication
+import android.os.Bundle
+import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration
 
-import com.badlogic.gdx.backends.android.AndroidApplication;
-import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
-import com.chskela.game.Pong;
-
-public class AndroidLauncher extends AndroidApplication {
-	@Override
-	protected void onCreate (Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
-		initialize(new Pong(), config);
-	}
+class AndroidLauncher : AndroidApplication() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        val config = AndroidApplicationConfiguration()
+        initialize(Application(), config)
+    }
 }

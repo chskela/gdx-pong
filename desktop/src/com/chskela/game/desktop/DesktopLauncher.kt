@@ -1,12 +1,17 @@
-package com.chskela.game.desktop;
+package com.chskela.game.desktop
 
-import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
-import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
-import com.chskela.game.Pong;
+import kotlin.jvm.JvmStatic
+import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application
+import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration
+import com.chskela.game.Application
 
-public class DesktopLauncher {
-	public static void main (String[] arg) {
-		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-		new LwjglApplication(new Pong(), config);
-	}
+object DesktopLauncher {
+    @JvmStatic
+    fun main(arg: Array<String>) {
+        val config = Lwjgl3ApplicationConfiguration()
+        config.setTitle(Application.TITLE + " " + Application.VERSION)
+        config.setForegroundFPS(60)
+        config.setWindowedMode(Application.V_WIDTH.toInt(), Application.V_HEIGHT.toInt())
+        Lwjgl3Application(Application(), config)
+    }
 }
