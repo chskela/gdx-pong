@@ -16,7 +16,8 @@ import com.chskela.game.Application
 class SplashScreen(private val app: Application) : Screen {
 
     private val stage = Stage(FitViewport(Application.V_WIDTH, Application.V_HEIGHT))
-    private val splashScreenTexture = Texture(Gdx.files.internal("img/pong_splashscreen.png"))
+    private val splashScreenTexture =
+        app.asset.get("img/pong_splashscreen.png", Texture::class.java)
     private val splashScreenImage = Image(splashScreenTexture)
 
     init {
@@ -28,7 +29,12 @@ class SplashScreen(private val app: Application) : Screen {
                 alpha(0f), scaleTo(.1f, .1f), parallel(
                     fadeIn(1.5f, Interpolation.pow2),
                     scaleTo(1f, 1f, 2f, Interpolation.pow5),
-                    moveTo(stage.width / 2 - 179f, stage.height / 2 - 78f, 1.5f, Interpolation.swing)
+                    moveTo(
+                        stage.width / 2 - 179f,
+                        stage.height / 2 - 78f,
+                        1.5f,
+                        Interpolation.swing
+                    )
                 ), delay(.5f), fadeOut(1f)
             )
         )

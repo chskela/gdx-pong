@@ -1,12 +1,12 @@
 package com.chskela.game
 
 import com.badlogic.gdx.Game
+import com.badlogic.gdx.assets.AssetManager
 
 import com.badlogic.gdx.graphics.OrthographicCamera
 import com.badlogic.gdx.graphics.g2d.BitmapFont
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
-import com.chskela.game.screens.MainMenuScreen
-import com.chskela.game.screens.SplashScreen
+import com.chskela.game.screens.LoadingScreen
 
 class Application : Game() {
 
@@ -17,6 +17,7 @@ class Application : Game() {
         const val V_HEIGHT = 720f
     }
 
+    val asset = AssetManager()
     val camera = OrthographicCamera()
     lateinit var batch: SpriteBatch
     lateinit var font: BitmapFont
@@ -26,12 +27,14 @@ class Application : Game() {
         batch = SpriteBatch()
 //        font = BitmapFont(Gdx.files.internal("roboto_regular.ttf"))
         font = BitmapFont()
-        screen = SplashScreen(this)
+        screen = LoadingScreen(this)
     }
 
     override fun dispose() {
         super.dispose()
         batch.dispose()
+        font.dispose()
+        asset.dispose()
         screen.dispose()
     }
 
