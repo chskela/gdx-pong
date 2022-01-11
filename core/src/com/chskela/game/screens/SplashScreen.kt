@@ -16,12 +16,18 @@ import com.chskela.game.Application
 class SplashScreen(private val app: Application) : Screen {
 
     private val stage = Stage(FitViewport(Application.V_WIDTH, Application.V_HEIGHT))
-    private val splashScreenTexture =
-        app.asset.get("img/pong_splashscreen.png", Texture::class.java)
-    private val splashScreenImage = Image(splashScreenTexture)
+    private lateinit var splashScreenTexture: Texture
+    private lateinit var splashScreenImage: Image
 
     init {
+        app.font24.data.scale(3f)
+    }
+
+    override fun show() {
         Gdx.input.inputProcessor = stage
+
+        splashScreenTexture = app.asset.get("img/pong_splashscreen.png", Texture::class.java)
+        splashScreenImage = Image(splashScreenTexture)
         splashScreenImage.setOrigin(splashScreenImage.width / 2, splashScreenImage.height / 2)
         splashScreenImage.setPosition(stage.width / 2 - 179f, stage.height + 78f)
         splashScreenImage.addAction(
@@ -39,10 +45,7 @@ class SplashScreen(private val app: Application) : Screen {
             )
         )
         stage.addActor(splashScreenImage)
-        app.font.data.scale(3f)
     }
-
-    override fun show() {}
 
     override fun render(delta: Float) {
         ScreenUtils.clear(Color(0.5f, 0.8471f, 1f, 1f))

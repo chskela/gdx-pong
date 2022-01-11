@@ -14,8 +14,8 @@ class MainMenuScreen(private val app: Application) : Screen {
     private val style = TextButton.TextButtonStyle()
     init {
         camera.setToOrtho(false, 800f, 480f)
-        app.font.data.scale(5f)
-        style.font = app.font
+        app.font24.data.scale(5f)
+        style.font = app.font24
     }
     private var button = TextButton("Start game", style)
     override fun show() {

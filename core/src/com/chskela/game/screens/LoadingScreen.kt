@@ -5,8 +5,10 @@ import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer
 import com.badlogic.gdx.math.MathUtils
+import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar
 import com.badlogic.gdx.utils.ScreenUtils
 import com.chskela.game.Application
+import kotlin.properties.Delegates
 
 class LoadingScreen(private val app: Application) : Screen {
 
@@ -18,6 +20,8 @@ class LoadingScreen(private val app: Application) : Screen {
     }
 
     override fun show() {
+        progressLoad = 0f
+        queueAssets()
     }
 
     override fun render(delta: Float) {
@@ -47,7 +51,7 @@ class LoadingScreen(private val app: Application) : Screen {
         progressLoad = MathUtils.lerp(progressLoad, app.asset.progress, 0.1f)
 
         if (app.asset.update() && progressLoad <= app.asset.progress - .0001f) {
-            app.screen = SplashScreen(app)
+            app.screen = app.splashScreen
         }
     }
 
